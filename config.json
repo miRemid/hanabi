@@ -1,0 +1,8 @@
+{
+    "api_url": "localhost",
+    "api_port": 5700,
+    "log_path": "./log",
+    "screct": "amy",
+    "cmd": ["!", "！"],
+    "access_token": ""
+}

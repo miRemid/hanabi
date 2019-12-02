@@ -19,7 +19,10 @@ import (
 )
 
 func main() {
-    client := hanabi.NewServer()
+    // 设置Amy SDK参数，CQHTTP地址和端口
+    client := hanabi.NewServer("127.0.0.1", 5700)
+    // 设置CQHTTP API TOKEN
+    client.AccessToken("token")
     // 注册插件，hanabi自带help指令
     // 用于返回所有插件使用信息
     client.Register(plugins.Roll{
@@ -31,13 +34,22 @@ func main() {
     client.Run(":3000", "/")
 }
 ```
+# 配置
+    name: Bot名称=>"amy"
+    log_path: 日志存储目录=>"./log"
+    screct: cqhttp配置=>"amy"
+    access_token: cqhttp api token=>"asdf"
+    cmd: 命令标志=>["!", "#"]
 # 插件
 ## Plugin 插件接口
 hanabi的插件需要满足`hanabi.Plugin`接口
 ```golang
+
+import "github.com/miRemid/amy/tserver/event"
+
 type Plugin interface {
     // 作为解析命令函数
-    Parse(api *amy.API, evt server.CQEvent)
+    Parse(evt event.CQEvent)
     // 返回插件使用方式信息
     Help() string
 }
@@ -50,8 +62,8 @@ type Example struct {
     Cmd string `hana:"haha" role:"7"`
 }
 
-func (e Example) Parse(api *hanabi.API, evt server.CQEvent) {
-    if res, err := api.Send(evt, "hahaha", true, false); err != nil {
+func (e Example) Parse(evt event.CQEvent) {
+    if res, err := evt.Send("hahaha", true, false); err != nil {
         ...
     }else {
         ...
@@ -76,13 +88,3 @@ hanabi将会提取role字段转为int类型取低三位数字，根据其二进�
     010 群组消息，2
     100 讨论祖消息，4
     111 所有消息，7
-# 请求事件
-```golang
-import "github.com/miRemid/amy/message"
-// 允许一切邀请
-client.On(func(api *hanabi.API, evt server.CQEvent){
-    evt.JSON(200, message.CQJSON{
-        "approve": true,
-    })
-}, hanabi.Request)
-```

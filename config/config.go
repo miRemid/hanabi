@@ -9,12 +9,15 @@ import (
 
 var (
 	file     []byte
-	API_URL  string
-	API_PORT int64
+	// LOG_PATH 日志文件目录
 	LOG_PATH string
+	// TOKEN CQHTTP TOKEN
 	TOKEN    string
+	// SCRECT CQHTTP SCRECT
 	SCRECT   string
+	// CMD 命令解析
 	CMD      []string
+	// NAME 服务名称
 	NAME     string
 )
 
@@ -24,8 +27,6 @@ func init() {
 		panic(err)
 	}
 	file = f
-	LoadInt(&API_PORT, 5700, "api_port")
-	LoadString(&API_URL, "localhost", "api_url")
 	LoadString(&LOG_PATH, "./log", "log_path")
 	LoadString(&SCRECT, "", "screct")
 	LoadString(&TOKEN, "", "access_token")

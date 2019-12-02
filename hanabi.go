@@ -125,11 +125,6 @@ func (c *Client) On(handler Handler, flag int) {
 	}
 }
 
-// AccessToken set the CQHTTP api token
-func (c *Client) AccessToken(token string) {
-	c.bot.AccessToken = token
-}
-
 // Run the client
 func (c *Client) Run(addr, router string) {
 	c.Register(Help{
@@ -139,6 +134,7 @@ func (c *Client) Run(addr, router string) {
 	if config.SCRECT != "" {
 		c.bot.Use(tserver.Signature(config.SCRECT))
 	}
+	c.bot.AccessToken = config.TOKEN
 	c.bot.On(c.m, tserver.Message)
 	c.bot.Run(addr, router)
 }

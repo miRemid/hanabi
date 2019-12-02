@@ -1,8 +1,7 @@
 {
     "name": "Amy~",
-    "api_url": "localhost",
-    "api_port": 5700,
     "log_path": "./log",
     "screct": "amy",
+    "access_token": "asdf",
     "cmd": ["!", "！", "###"]
 }

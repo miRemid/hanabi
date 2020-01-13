@@ -19,11 +19,13 @@ const (
 	Request
 )
 
+// Plugin is the plugin of hanabi
 type Plugin interface {
 	Parse(evt event.CQSession)
 	Help() string
 }
 
+// Handler is the function of cqevent
 type Handler func(evt event.CQSession)
 
 // Parse 解析函数

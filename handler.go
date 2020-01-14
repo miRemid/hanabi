@@ -9,7 +9,6 @@ import (
 
 func (c *Client) m(evt event.CQSession) {
 	cmd, _ := evt.Params(config.CMD...)
-	log.Println(cmd)
 	if plugin, ok := c.plugins[cmd]; ok {
 		flag := false
 		switch evt.Type {

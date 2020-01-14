@@ -1,11 +1,5 @@
 # Hanabi
-一个go语言CQHTTP机器人框架
-
-# 安装依赖
-	go get -u github.com/buger/jsonparser
-    go get -u github.com/miRemig/amy
-    go get -u github.com/miRemid/hanabi
-推荐使用go mod
+一个go语言CQHTTP机器人框架(目前仅支持消息)
 
 # 简单使用
 ```golang
@@ -23,12 +17,17 @@ func main() {
     client := hanabi.NewServer("127.0.0.1", 5700)
     // 设置CQHTTP API TOKEN
     client.AccessToken("token")
-    // 注册插件，hanabi自带help指令
-    // 用于返回所有插件使用信息
+    
+    // 注册插件
     client.Register(plugins.Roll{
         Cmd: "roll",
         Area: 100,
     })
+
+    // hanabi自带了一个Help插件
+    // 如需关闭请设置HelpPlugin为false
+    // client.HelpPlugin = false
+
     log.Println("run at 3000")
     // 运行
     client.Run(":3000", "/")
@@ -49,20 +48,20 @@ import "github.com/miRemid/amy/tserver/event"
 
 type Plugin interface {
     // 作为解析命令函数
-    Parse(evt event.CQEvent)
+    Parse(evt event.CQSession)
     // 返回插件使用方式信息
     Help() string
 }
 ```
 ## Plugin 插件标准
 hanabi的插件标准格式非常简单，其必须包含`Cmd`字段，返回值为`string`用于标识指令.
-如果在`Cmd`字段添加`tag: hana:"cmd"`，在`Register`时就不必要写入Cmd信息.
+如果在`Cmd`字段添加`tag`如`hana:"cmd"`，在`Register`时就不必要写入Cmd信息.
 ```golang
 type Example struct {
     Cmd string `hana:"haha" role:"7"`
 }
 
-func (e Example) Parse(evt event.CQEvent) {
+func (e Example) Parse(evt event.CQSession) {
     if res, err := evt.Send("hahaha", true, false); err != nil {
         ...
     }else {

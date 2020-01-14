@@ -37,6 +37,8 @@ type Client struct {
 	plugins map[string]p
 	notice  Handler
 	request Handler
+
+	HelpPlugin bool
 }
 
 type p struct {
@@ -48,25 +50,28 @@ type p struct {
 }
 
 // NewServer return a hanabi client
-func NewServer(url string, port	int) *Client {
+func NewServer(url string, port int) *Client {
 	var res Client
 	res.bot = tserver.NewBot(url, port)
 	res.plugins = make(map[string]p)
+	res.HelpPlugin = true
 	return &res
 }
 
-func permision(v reflect.Value, f reflect.StructField) int {
+func permision(v reflect.Value, f reflect.StructField) (per int) {
 	role := f.Tag.Get("role")
 	if role == "" {
 		log.Printf("[WA] %s插件权限读取失败，以设置默认权限为7", v.Type())
 		return 7
 	}
-	if per, err := strconv.Atoi(role); err != nil {
+	tmp, err := strconv.Atoi(role)
+	if err != nil {
 		log.Printf("[WA] %s插件权限读取失败，以设置默认权限为7", v.Type())
-		return 7
+		per = 7
 	} else {
-		return per
+		per = tmp
 	}
+	return per
 }
 
 // Register a plugin
@@ -129,10 +134,12 @@ func (c *Client) On(handler Handler, flag int) {
 
 // Run the client
 func (c *Client) Run(addr, router string) {
-	c.Register(Help{
-		Cmd:     "help",
-		Plugins: c.plugins,
-	})
+	if c.HelpPlugin {
+		c.Register(Help{
+			Cmd:     "help",
+			Plugins: c.plugins,
+		})
+	}
 	if config.SCRECT != "" {
 		c.bot.Use(tserver.Signature(config.SCRECT))
 	}

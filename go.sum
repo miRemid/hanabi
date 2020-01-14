@@ -1,3 +1,10 @@
 github.com/buger/jsonparser v0.0.0-20191204142016-1a29609e0929 h1:MW/JDk68Rny52yI0M0N+P8lySNgB+NhpI/uAmhgOhUM=
 github.com/buger/jsonparser v0.0.0-20191204142016-1a29609e0929/go.mod h1:tgcrVJ81GPSF0mz+0nu1Xaz0fazGPrmmJfJtxjbHhUQ=
+github.com/gorilla/mux v1.7.3 h1:gnP5JzjVOuiZD07fKKToCAOjS0yOpj/qPETTXCCS6hw=
+github.com/gorilla/mux v1.7.3/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
+github.com/gorilla/websocket v1.4.1/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/miRemid/amy v0.0.3 h1:mPFR7v9zQgJQKSfmtygZ7PaPonuFUF1jR2tp+lDBpjY=
+github.com/miRemid/amy v0.1.0 h1:Hm4m1E1nrqGpQr5IZTW2t1fb4QkrtVxMPAdRTh0UL3Q=
+github.com/miRemid/amy v0.1.0/go.mod h1:dR/y1HAA3hJwX5RGqTYPDSQlCjxj7vxG16ZbvVwnivs=
+github.com/miRemid/amy v0.1.3 h1:mfgW/Ch+Bey2jrzgZZLOOJUSXkfxs4zI0oetNUZUkx4=
+github.com/miRemid/amy v0.1.3/go.mod h1:gCDHQwm5alde54c/DnLJ94UKFvF82NdMJvYgAf8nF+0=

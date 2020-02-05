@@ -3,9 +3,11 @@ package hanabi
 import (
 	"fmt"
 	"log"
+
 	"github.com/miRemid/amy/tserver/event"
 	"github.com/miRemid/hanabi/config"
 )
+
 // Help is the help plugin
 type Help struct {
 	Cmd     string `hana:"help" role:"7"`
@@ -20,10 +22,10 @@ func (h Help) Parse(evt event.CQSession) {
 		msg += fmt.Sprintf("%s:\t%s\n", name, plugin.plugin.Help())
 	}
 	log.Println(msg)
-	res, err := evt.Send(msg[:len(msg)-1], true, true)
+	res, err := evt.Send(msg[:len(msg)-1], true, false)
 	if err != nil {
 		log.Println(err)
-	}else {
+	} else {
 		log.Println(res.ID)
 	}
 }
